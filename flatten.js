@@ -8,4 +8,4 @@ const flatten = function(array) {
     } else result.push(array[i]); 
   } return result;
 }
-console.log(flatten([1, 2, [3, 6, 7, 4], 5, [6, 7, 8]]));
+
