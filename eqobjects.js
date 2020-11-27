@@ -27,14 +27,23 @@ const eqObjects = function(object1, object2) {
     return false;
   }
   for (const element in object1) {
-    if (Array.isArray(object1[element])) {
+    if (typeof object1[element] === "object" && !Array.isArray(object1[element])) {
+      if (!eqObjects(object1[element], object2[element])) {
+        return false;
+      } 
+  } else if (Array.isArray(object1[element])) {
       if (!eqArrays(object1[element], object2[element])) {
         return false;
       }
     } else if (object1[element] !== object2[element]) {
       return false;
-    }
-  } return true;
+  } 
+}  return true;
 };
 
 
+console.log(eqObjects({ a: { z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 })); // => true
+
+console.log(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 })); // => false
+console.log(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 }));
+console.log(eqObjects({a: 2, b: 3, c: {c: 2, d: 4}, d: 5, d: [1, 2, 3, 4, 5]}, {a: 2, b: 3, c: {c: 2, d: 4}, d: 5, d: [1, 2, 3, 4, 5]}))
