@@ -7,5 +7,8 @@ const flatten = function(array) {
       }
     } else result.push(array[i]); 
   } return result;
-}
+};
+
+module.exports = flatten;
+
 
